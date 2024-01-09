@@ -158,7 +158,7 @@ fun DetailsScreen() {
                         Text(
                             modifier = Modifier.padding(start = 4.dp),
                             text = movie.vote_average.toString().take(3),
-                            color = Color.LightGray,
+                            color = Color.White,
                             fontSize = 14.sp,
                             maxLines = 1,
                         )
@@ -168,21 +168,24 @@ fun DetailsScreen() {
 
                     Text(
                         modifier = Modifier.padding(start = 16.dp),
-                        text = stringResource(R.string.language) + movie.original_language
+                        text = stringResource(R.string.language) + movie.original_language,
+                        color = Color.White,
                     )
 
                     Spacer(modifier = Modifier.height(10.dp))
 
                     Text(
                         modifier = Modifier.padding(start = 16.dp),
-                        text = stringResource(R.string.release_date) + movie.release_date
+                        text = stringResource(R.string.release_date) + movie.release_date,
+                        color = Color.White,
                     )
 
                     Spacer(modifier = Modifier.height(10.dp))
 
                     Text(
                         modifier = Modifier.padding(start = 16.dp),
-                        text = movie.release_date + stringResource(R.string.votes)
+                        text = movie.release_date + stringResource(R.string.votes),
+                        color = Color.White,
                     )
                 }
             }
@@ -194,7 +197,7 @@ fun DetailsScreen() {
             modifier = Modifier.padding(start = 16.dp),
             text = stringResource(R.string.overview),
             fontSize = 19.sp,
-            fontWeight = FontWeight.SemiBold
+            fontWeight = FontWeight.SemiBold, color = Color.White,
         )
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -203,7 +206,7 @@ fun DetailsScreen() {
             Text(
                 modifier = Modifier.padding(start = 16.dp),
                 text = it.overview,
-                fontSize = 16.sp,
+                fontSize = 16.sp, color = Color.White,
             )
         }
 

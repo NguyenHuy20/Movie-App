@@ -8,4 +8,6 @@
     <string name="release_date">"Release Date: "</string>
     <string name="votes">" Votes"</string>
     <string name="overview">Overview</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
 </resources>

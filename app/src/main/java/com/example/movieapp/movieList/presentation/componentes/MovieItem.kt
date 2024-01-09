@@ -33,6 +33,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.drawable.toBitmap
@@ -66,18 +67,13 @@ fun MovieItem(
     Column(
         modifier = Modifier
             .wrapContentHeight()
-            .width(200.dp)
-            .padding(8.dp)
+            .width(180.dp)
+            .padding(10.dp)
             .clip(
-                RoundedCornerShape(28.dp)
+                RoundedCornerShape(20.dp)
             )
             .background(
-                Brush.verticalGradient(
-                    colors = listOf(
-                        MaterialTheme.colorScheme.secondaryContainer,
-                        dominantColor
-                    )
-                )
+                Color.Black
             )
             .clickable {
                 navHostController.navigate(Screen.Details.rout + "/${movie.id}")
@@ -108,10 +104,10 @@ fun MovieItem(
             Image(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(6.dp)
+                    .padding(2.dp)
                     .height(250.dp)
                     .clip(
-                        RoundedCornerShape(22.dp)
+                        RoundedCornerShape(20.dp)
                     ),
                 painter = imageState.painter,
                 contentDescription = movie.title,
@@ -120,11 +116,12 @@ fun MovieItem(
         }
         Spacer(modifier = Modifier.height(6.dp))
         Text(
-            modifier = Modifier.padding(start = 26.dp, end = 8.dp),
+            modifier = Modifier.padding(start = 16.dp, end = 8.dp),
             text = movie.title,
             color = Color.White,
-            fontSize = 15.sp,
-            maxLines = 1
+            fontSize = 18.sp,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
         )
         Row(
             modifier = Modifier

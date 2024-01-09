@@ -1,5 +1,6 @@
 package com.example.movieapp.movieList.presentation
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.movieapp.movieList.domain.repository.MovieListRepository
@@ -14,38 +15,42 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MovieListViewModel @Inject constructor(private val movieListRepository :MovieListRepository) : ViewModel() {
-    private  var _movieListState= MutableStateFlow(MovieListState())
-    val movieListState=_movieListState.asStateFlow()
+class MovieListViewModel @Inject constructor(private val movieListRepository: MovieListRepository) :
+    ViewModel() {
+    private var _movieListState = MutableStateFlow(MovieListState())
+    val movieListState = _movieListState.asStateFlow()
+
     init {
         getPopularMovieList(false)
         getUpcomingMovieList(false)
     }
-    fun onEvent(event:MovieListUIEvent){
-        when(event){
-            MovieListUIEvent.Navigate->{
-                _movieListState.update {
-                    it.copy(
-                        isCurrentPopularScreen = !movieListState.value.isCurrentPopularScreen
-                    )
+
+    fun onEvent(event: MovieListUIEvent) {
+        when (event) {
+//            MovieListUIEvent.Navigate -> {
+//                _movieListState.update {
+//                    it.copy(
+//                        isCurrentPopularScreen = !movieListState.value.isCurrentPopularScreen
+//                    )
+//                }
+//            }
+
+            is MovieListUIEvent.Paginate -> {
+                if (event.category == Category.POPULAR) {
+                    getPopularMovieList(true)
                 }
-            }
-            is MovieListUIEvent.Paginate->{
-               if(event.category==Category.POPULAR){
-                   getPopularMovieList(true)
-               }
-                if(event.category==Category.UPCOMING){
+                if (event.category == Category.UPCOMING) {
                     getUpcomingMovieList(true)
                 }
             }
         }
     }
+
     private fun getPopularMovieList(forceFetchFromRemote: Boolean) {
         viewModelScope.launch {
             _movieListState.update {
                 it.copy(isLoading = true)
             }
-
             movieListRepository.getMovieList(
                 forceFetchFromRemote,
                 Category.POPULAR,
@@ -63,7 +68,7 @@ class MovieListViewModel @Inject constructor(private val movieListRepository :Mo
                             _movieListState.update {
                                 it.copy(
                                     popularMovieList = movieListState.value.popularMovieList
-                                            + popularList.shuffled(),
+                                            + popularList,
                                     popularMovieListPage = movieListState.value.popularMovieListPage + 1
                                 )
                             }
@@ -103,7 +108,7 @@ class MovieListViewModel @Inject constructor(private val movieListRepository :Mo
                             _movieListState.update {
                                 it.copy(
                                     upcomingMovieList = movieListState.value.upcomingMovieList
-                                            + upcomingList.shuffled(),
+                                            + upcomingList,
                                     upcomingMovieListPage = movieListState.value.upcomingMovieListPage + 1
                                 )
                             }
